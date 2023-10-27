@@ -5,4 +5,4 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(sort_algs
         main.c
-)
+        indx_list.h)
