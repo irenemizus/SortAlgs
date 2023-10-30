@@ -5,6 +5,8 @@
 #ifndef INDX_LIST_H
 #define INDX_LIST_H
 
+#include <assert.h>
+
 struct indx_item {
     size_t indx;
     struct indx_item *next, *prev;
