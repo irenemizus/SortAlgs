@@ -38,13 +38,17 @@ def merge(IN, p, q, r, OUT):
     if j < r:
         OUT[k:r] = IN[j:r]
 
-def MergeSort(A, p, r):
-    # if (r - p) >= 2:
-    #     q = math.floor((r + p) / 2)
-    #     MergeSort(A, p, q)
-    #     MergeSort(A, q, r)
-    #     merge(A, p, q, r)
+def MergeSortRecursive(A, p, r, A_tmp):
+    if A_tmp == None:
+        A_tmp = []
+    if (r - p) >= 2:
+        q = math.floor((r + p) / 2)
+        MergeSortRecursive(A, p, q, A_tmp)
+        MergeSortRecursive(A, q, r, A_tmp)
+        A_tmp[:] = A[:]
+        merge(A_tmp, p, q, r, A)
 
+def MergeSort(A, p, r):
     if p < r and r <= len(A):
         A_in = A
         A_out = A[:]

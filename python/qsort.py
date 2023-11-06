@@ -21,13 +21,11 @@ def rand_part(L, p, r):
     L[piv_ind] = tmp
     return part(L, p, r)
 
-def QuickSort(L, p, r):
+def QuickSortRecursive(L, p, r):
     if p < r:
         q = rand_part(L, p, r)
-        QuickSort(L, p, q - 1)
-        QuickSort(L, q + 1, r)
-
-    return L
+        if q > 0: QuickSortRecursive(L, p, q - 1)
+        QuickSortRecursive(L, q + 1, r)
 
 def rand_select(L, p, r, s):
     if p == r:
