@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -7,17 +6,6 @@
 
 #include "third_party/cutest-1.5/CuTest.h"
 
-#ifndef BOOL
-#define BOOL int
-#endif
-
-#ifndef TRUE
-#define TRUE 1
-#endif
-
-#ifndef FALSE
-#define FALSE 0
-#endif
 
 static size_t len_L;
 
@@ -32,15 +20,21 @@ BOOL IsSorted(const uint32_t* L, size_t len_L) {
     return is_sorted;
 }
 
-void TestIsSortedQuickSort(CuTest* tc) {
+void TestIsSortedQuickSortRecursive(CuTest* tc) {
     uint32_t *L = make_rand_list(len_L);
-    L = QuickSort(L, 0, len_L - 1);
+    QuickSortRecursive(L, 0, len_L - 1);
     CuAssertTrue(tc, IsSorted(L, len_L) == TRUE);
 }
 
 void TestIsSortedMergeSort(CuTest* tc) {
     uint32_t *L = make_rand_list(len_L);
     MergeSort(L, len_L, 0, len_L);
+    CuAssertTrue(tc, IsSorted(L, len_L) == TRUE);
+}
+
+void TestIsSortedMergeSortRecursive(CuTest* tc) {
+    uint32_t *L = make_rand_list(len_L);
+    MergeSortRecursive(L, len_L, 0, len_L, NULL);
     CuAssertTrue(tc, IsSorted(L, len_L) == TRUE);
 }
 
@@ -55,8 +49,9 @@ CuSuite* CuGetSuite(void)
     len_L = 123;
     srand(0);
 
-    SUITE_ADD_TEST(suite, TestIsSortedQuickSort);
+    SUITE_ADD_TEST(suite, TestIsSortedQuickSortRecursive);
     SUITE_ADD_TEST(suite, TestIsSortedMergeSort);
+    SUITE_ADD_TEST(suite, TestIsSortedMergeSortRecursive);
 
 	return suite;
 }

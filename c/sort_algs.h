@@ -5,7 +5,20 @@
 #ifndef SORT_ALGS_H
 #define SORT_ALGS_H
 
+#include <math.h>
 #include "indx_list.h"
+
+#ifndef BOOL
+#define BOOL int
+#endif
+
+#ifndef TRUE
+#define TRUE 1
+#endif
+
+#ifndef FALSE
+#define FALSE 0
+#endif
 
 uint32_t* make_rand_list(size_t len) {
     uint32_t *L = (uint32_t*)malloc(len * sizeof(uint32_t));
@@ -42,13 +55,17 @@ size_t rand_part(uint32_t* L, size_t p, size_t r) {
     return part(L, p, r);
 }
 
-uint32_t* QuickSort(uint32_t* L, size_t p, size_t r) {
+//static int sdepth = 0;
+//static int sdepth_max = 0;
+void QuickSortRecursive(uint32_t* L, size_t p, size_t r) {
+    //sdepth++;
+    //if (sdepth > sdepth_max) sdepth_max = sdepth;
     if (p < r) {
         size_t q = rand_part(L, p, r);
-        if (q > 0) QuickSort(L, p, q - 1);
-        QuickSort(L, q + 1, r);
+        if (q > 0) QuickSortRecursive(L, p, q - 1);
+        QuickSortRecursive(L, q + 1, r);
     }
-    return L;
+    //sdepth--;
 }
 
 uint32_t rand_select(uint32_t* L, size_t p, size_t r, size_t s) {
@@ -92,7 +109,29 @@ void merge(uint32_t* IN, size_t p, size_t q, size_t r, uint32_t* OUT) {
     }
 }
 
+void MergeSortRecursive(uint32_t* A, size_t len_A, size_t p, size_t r, uint32_t* A_tmp) {
+    BOOL free_A_tmp = FALSE;
+    if (A_tmp == NULL) {
+        A_tmp = (uint32_t*)malloc(len_A * sizeof(A[0]));
+        free_A_tmp = TRUE;
+    }
+
+    if ((r - p) >= 2) {
+        size_t q = (r + p) / 2;
+        MergeSortRecursive(A, len_A, p, q, A_tmp);
+        MergeSortRecursive(A, len_A, q, r, A_tmp);
+        memcpy((void*)A_tmp, (void*)A, len_A * sizeof(A[0]));
+        merge(A_tmp, p, q, r, A);
+    }
+
+    if (free_A_tmp == TRUE) {
+        free(A_tmp);
+    }
+}
+
 void MergeSort(uint32_t* A, size_t len_A, size_t p, size_t r) {
+    assert(r <= len_A);
+    assert(p <= len_A);
     if (p < r && r <= len_A) {
         uint32_t* A_tmp = (uint32_t*)malloc(len_A * sizeof(A[0]));
         uint32_t* A_in = A;
