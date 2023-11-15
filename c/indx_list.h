@@ -23,7 +23,7 @@ struct indx_item* indx_alloc_initial(size_t indx) {
 struct indx_item* indx_alloc_next(struct indx_item *current, size_t indx) {
     struct indx_item* res = malloc(sizeof(struct indx_item));
     res->indx = indx;
-    res->next = NULL;
+    res->next = current->next;
     res->prev = current;
     current->next = res;
     return res;

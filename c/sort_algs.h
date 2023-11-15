@@ -68,6 +68,38 @@ void QuickSortRecursive(uint32_t* L, size_t p, size_t r) {
     //sdepth--;
 }
 
+void QuickSort(uint32_t* L, size_t p, size_t r) {
+    struct indx_item* indx = indx_alloc_initial(p);
+    struct indx_item* indx_first = indx; // Points to the first list in the indx list
+    indx_alloc_next(indx, r + 1);
+    BOOL any_sorted = TRUE;
+
+    indx = indx_first;
+    while (any_sorted) {
+        any_sorted = FALSE;
+        while (indx->next != NULL) {
+            size_t p_i = indx->indx;
+            size_t r_i = indx->next->indx;
+            if (r_i - p_i > 1) {
+                size_t q_i = rand_part(L, p_i, r_i - 1);
+                any_sorted = TRUE;
+                if ((p_i < q_i) && (q_i < r_i)) {
+                    indx_alloc_next(indx, q_i);
+                    break;
+                } else if (q_i == r_i) {
+                    indx_alloc_next(indx, q_i - 1);
+                    break;
+                } else if (q_i == p_i) {
+                    indx_alloc_next(indx, p_i + 1);
+                    break;
+                }
+            }
+            indx = indx->next;
+        }
+    }
+    free(indx);
+}
+
 uint32_t rand_select(uint32_t* L, size_t p, size_t r, size_t s) {
     if (p == r) return L[p];
     if (p < r) {
@@ -113,14 +145,14 @@ void MergeSortRecursive(uint32_t* A, size_t len_A, size_t p, size_t r, uint32_t*
     BOOL free_A_tmp = FALSE;
     if (A_tmp == NULL) {
         A_tmp = (uint32_t*)malloc(len_A * sizeof(A[0]));
+        memcpy((void*)A_tmp, (void*)A, len_A * sizeof(A[0]));
         free_A_tmp = TRUE;
     }
 
     if ((r - p) >= 2) {
         size_t q = (r + p) / 2;
-        MergeSortRecursive(A, len_A, p, q, A_tmp);
-        MergeSortRecursive(A, len_A, q, r, A_tmp);
-        memcpy((void*)A_tmp, (void*)A, len_A * sizeof(A[0]));
+        MergeSortRecursive(A_tmp, len_A, p, q, A);
+        MergeSortRecursive(A_tmp, len_A, q, r, A);
         merge(A_tmp, p, q, r, A);
     }
 
