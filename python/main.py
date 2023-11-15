@@ -8,7 +8,7 @@ import msort
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    len = 12
+    length = 12
     max_len = 10000000
 
     # Reference sorting by a standard Python tool
@@ -20,75 +20,39 @@ if __name__ == '__main__':
     time_ref = sec_f_ref - sec_i_ref
     print(f"Standard Python List sort for 10M items: {time_ref:.6f}")
 
-    # #l = [123]
-    # indx = indx_list.indx_item(0)
-    # indx.add_next(123)
-    #
-    # for qqq in range(10000000):
-    #     time_in = time.time()
-    #     for ppp in range(10000):
-    #         #l.insert(0, 987)
-    #         indx.add_next(987)
-    #     time_out = time.time()
-    #
-    #     time_qs = time_out - time_in
-    #     print(f"{qqq * 10000} {time_qs:.6f}\t")
-    #
-    # print()
-
-    # arr = [9,8,7,6,5,4,3,2,1,0]
-    # qq = qsort.rand_part(arr,0, 8)
-    # print(qq)
-    # print(arr)
-
     # QuickSortRecursive
-    L_rec = random.sample(range(0, msort.MAX), len)
-    #L_rec = [9872, 2554, 6209, 9551, 4823, 7707, 1087, 1386, 8462, 645, 1087, 3687, 2138, 665, 4922, 250, 7349, 5416, 2632, 2438, 7548, 6083, 8273, 6262, 8680, 8231, 550, 9402, 1485, 8486, 9832, 1251] #[2, 2, 1]
-    #L_rec = [9872, 2554, 6209, 9551, 4823, 7707, 1087, 1386, 8462, 645, 1087, 3687]
-    #L_rec = [1087, 1386, 645, 1087, 368]
-    #L_rec = [10000, 2554, 3687, 2632, 4823]
+    L_rec = random.sample(range(0, msort.MAX), length)
     print("Initial list for QuickSortRecursive: ", L_rec)
 
     s = 3
     Ls = qsort.rand_select(L_rec, 0, len(L_rec) - 1, s)
     print(f"The {s}-th element of the list: {Ls}")
 
-    #random.seed(1)
     qsort.QuickSortRecursive(L_rec, 0, len(L_rec) - 1)
     print("Sorted list for QuickSortRecursive: ", L_rec)
 
     print()
 
     # QuickSort
-    L = random.sample(range(0, msort.MAX), len)
-    #L = [9872, 2554, 6209, 9551, 4823, 7707, 1087, 1386, 8462, 645, 1087, 3687, 2138, 665, 4922, 250, 7349, 5416, 2632, 2438, 7548, 6083, 8273, 6262, 8680, 8231, 550, 9402, 1485, 8486, 9832, 1251] #[2, 2, 1]
-    #L = [9872, 2554, 6209, 9551, 4823, 7707,  1087, 1386, 8462, 645, 1087, 3687]
-    #L = [1087, 1386, 645, 1087, 368]
-    #L = [10000, 2554, 3687, 2632, 4823]
+    L = random.sample(range(0, msort.MAX), length)
     print("Initial list for QuickSort: ", L)
 
-    #random.seed(1)
     qsort.QuickSortLinkedList(L, 0, len(L) - 1)
     print("Sorted list for QuickSort: ", L)
 
     print()
 
     # QuickSortSimpleList
-    L_sl = random.sample(range(0, msort.MAX), len)
-    #L = [9872, 2554, 6209, 9551, 4823, 7707, 1087, 1386, 8462, 645, 1087, 3687, 2138, 665, 4922, 250, 7349, 5416, 2632, 2438, 7548, 6083, 8273, 6262, 8680, 8231, 550, 9402, 1485, 8486, 9832, 1251] #[2, 2, 1]
-    #L = [9872, 2554, 6209, 9551, 4823, 7707,  1087, 1386, 8462, 645, 1087, 3687]
-    #L = [1087, 1386, 645, 1087, 368]
-    #L_sl = [10000, 2554, 3687, 2632, 4823]
+    L_sl = random.sample(range(0, msort.MAX), length)
     print("Initial list for QuickSortSimpleList: ", L_sl)
 
-    #random.seed(1)
     qsort.QuickSortSimpleList(L_sl, 0, len(L_sl) - 1)
     print("Sorted list for QuickSortSimpleList: ", L_sl)
 
     print()
 
     # MergeSortRecursive
-    IN_rec = random.sample(range(0, msort.MAX), len)
+    IN_rec = random.sample(range(0, msort.MAX), length)
     print("Initial list for MergeSortRecursive: ", IN_rec)
 
     p_rec = 0
@@ -99,7 +63,7 @@ if __name__ == '__main__':
     print()
 
     # MergeSort
-    IN = random.sample(range(0, msort.MAX), len)
+    IN = random.sample(range(0, msort.MAX), length)
     print("Initial list for MergeSort: ", IN)
 
     p = 0
@@ -109,13 +73,7 @@ if __name__ == '__main__':
 
     print()
 
-    # MergeSortSimpleList
-    #IN = [60, 33, 16, 99, 78, 35, 97, 26, 12, 67, 10]
-    # OUT = [-1] * len(IN)
-    # msort.merge(IN, 0, 0, 3, OUT)
-    # print(OUT)
-
-    IN_sl = random.sample(range(0, msort.MAX), len)
+    IN_sl = random.sample(range(0, msort.MAX), length)
     print("Initial list for MergeSortSimpleList: ", IN_sl)
 
     p = 0

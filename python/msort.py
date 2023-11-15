@@ -4,7 +4,9 @@ from indx_list import indx_item, indx_add_next, indx_del_item
 
 MAX = 10000
 
+
 def merge(IN, p, q, r, OUT):
+    # Karman's implementation:
     # n1 = q - p
     # n2 = r - q
     # L = []
@@ -87,6 +89,7 @@ def MergeSortLinkedList(A, p, r):
             A_out = tmp
 
         A[:] = A_in[:]
+
 
 def MergeSortSimpleList(A, p, r):
     if p < r and r <= len(A):

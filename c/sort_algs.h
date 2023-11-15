@@ -55,17 +55,12 @@ size_t rand_part(uint32_t* L, size_t p, size_t r) {
     return part(L, p, r);
 }
 
-//static int sdepth = 0;
-//static int sdepth_max = 0;
 void QuickSortRecursive(uint32_t* L, size_t p, size_t r) {
-    //sdepth++;
-    //if (sdepth > sdepth_max) sdepth_max = sdepth;
     if (p < r) {
         size_t q = rand_part(L, p, r);
         if (q > 0) QuickSortRecursive(L, p, q - 1);
         QuickSortRecursive(L, q + 1, r);
     }
-    //sdepth--;
 }
 
 void QuickSort(uint32_t* L, size_t p, size_t r) {
@@ -111,13 +106,13 @@ uint32_t rand_select(uint32_t* L, size_t p, size_t r, size_t s) {
     }
 }
 
-//void subarrcpy(uint32_t* OUT, size_t o1, size_t o2, uint32_t* IN, size_t i1, size_t i2) {
-//    assert(i2 > i1);
-//    assert(o2 > o1);
-//    assert(o2 - o1 == i2 - i1);
-//
-//    memcpy((void*)&OUT[o1], (void*)&IN[i1], (i2 - i1) * sizeof(IN[0]));
-//}
+void subarrcpy(uint32_t* OUT, size_t o1, size_t o2, uint32_t* IN, size_t i1, size_t i2) {
+    assert(i2 > i1);
+    assert(o2 > o1);
+    assert(o2 - o1 == i2 - i1);
+
+    memcpy((void*)&OUT[o1], (void*)&IN[i1], (i2 - i1) * sizeof(IN[0]));
+}
 
 void merge(uint32_t* IN, size_t p, size_t q, size_t r, uint32_t* OUT) {
     size_t il = p;  // Iterator left

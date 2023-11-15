@@ -23,65 +23,64 @@ void print_list(uint32_t* L, size_t len) {
 
 
 int main() {
-    size_t len = 12;
+    size_t length = 12;
     size_t max_len = 10000000;
 
     // QuickSortRecursive
-    uint32_t* L_rec = make_rand_list(len);
+    uint32_t* L_rec = make_rand_list(length);
 
     printf("\nInitial list for QuickSortRecursive: ");
-    print_list(L_rec, len);
+    print_list(L_rec, length);
 
     size_t s = 3;
-    uint32_t Ls = rand_select(L_rec, 0, len - 1, s);
+    uint32_t Ls = rand_select(L_rec, 0, length - 1, s);
     printf("The %d-th element of the list: %d\n", s, Ls);
 
-    QuickSortRecursive(L_rec, 0, len - 1);
+    QuickSortRecursive(L_rec, 0, length - 1);
     printf("Sorted list for QuickSortRecursive: ");
-    print_list(L_rec, len);
+    print_list(L_rec, length);
 
     free(L_rec);
 
     // QuickSort
-    uint32_t* L = make_rand_list(len);
+    uint32_t* L = make_rand_list(length);
 
     printf("\nInitial list for QuickSort: ");
-    print_list(L, len);
+    print_list(L, length);
 
-    QuickSort(L, 0, len - 1);
+    QuickSort(L, 0, length - 1);
     printf("Sorted list for QuickSort: ");
-    print_list(L, len);
+    print_list(L, length);
 
     free(L);
 
     // MergeSortRecursive
-    uint32_t* IN_rec = make_rand_list(len);
+    uint32_t* IN_rec = make_rand_list(length);
     printf("\nInitial list for MergeSortRecursive: ");
-    print_list(IN_rec, len);
+    print_list(IN_rec, length);
 
 
     size_t p_rec = 0;
-    size_t r_rec = len;
+    size_t r_rec = length;
 
-    MergeSortRecursive(IN_rec, len, p_rec, r_rec, NULL);
+    MergeSortRecursive(IN_rec, length, p_rec, r_rec, NULL);
     printf("Sorted list for MergeSortRecursive: ");
-    print_list(IN_rec, len);
+    print_list(IN_rec, length);
 
     free(IN_rec);
 
     // MergeSort
-    //uint32_t IN[] = { 60, 33, 16, 99, 78, 35, 97, 26, 12, 67, 10, 12 };
-    uint32_t* IN = make_rand_list(len);
+    uint32_t* IN = make_rand_list(length);
     printf("\nInitial list for MergeSort: ");
-    print_list(IN, len);
+    print_list(IN, length);
 
 
     size_t p = 0;
-    size_t r = len;
+    size_t r = length;
 
-    MergeSort(IN, len, p, r);
+    MergeSort(IN, length, p, r);
     printf("Sorted list for MergeSort: ");
-    print_list(IN, len);
+    print_list(IN, length);
 
     free(IN);
 
@@ -115,8 +114,6 @@ int main() {
         // QuickSort
         clock_t sec_i_qsr = clock();
         QuickSortRecursive(L_qsr, 0, len_L - 1);
-        //printf("sdepth: %d\t", sdepth_max); fflush(stdout);
-        //sdepth_max = 0;
         clock_t sec_f_qsr = clock();
 
         double time_qsr = ((double)(sec_f_qsr - sec_i_qsr) / CLOCKS_PER_SEC);

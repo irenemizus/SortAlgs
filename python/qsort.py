@@ -19,9 +19,6 @@ def part(L, p, r):
 
 def rand_part(L, p, r):
     piv_ind = random.randint(p, r)
-    #piv_ind = (p + r) // 2
-    #print(f"rand_part: {L}, {p}, {r} -> {piv_ind}")
-    #print(piv_ind)
     tmp = L[r]
     L[r] = L[piv_ind]
     L[piv_ind] = tmp

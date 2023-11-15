@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f9ebd06-c7b2-48cf-b8b6-3586bb6fb639" name="Changes" comment="A comparison for QuickSortRecursive, QuickSortSimpleList, QuickSortLinkedList, MergeSortRecursive, MergeSortSimpleList, and MergeSortLinkedList works correctly. The corresponding Unit tests are added.">
-      <change beforePath="$PROJECT_DIR$/../c/indx_list.h" beforeDir="false" afterPath="$PROJECT_DIR$/../c/indx_list.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../c/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../c/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sort_algs_py.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sort_algs_py.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/log.i9-10900K.macos.python3.8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/msort.py" beforeDir="false" afterPath="$PROJECT_DIR$/msort.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qsort.py" beforeDir="false" afterPath="$PROJECT_DIR$/qsort.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +102,7 @@
       <workItem from="1697462313787" duration="85000" />
       <workItem from="1697462447129" duration="22418000" />
       <workItem from="1697968188516" duration="20084000" />
-      <workItem from="1698785547509" duration="72985000" />
+      <workItem from="1698785547509" duration="73393000" />
     </task>
     <task id="LOCAL-00001" summary="Recursive MergeSort algorithm in Python is implemented. Measurement of performance statistics for the three implemented algorithms is added.">
       <created>1699301167152</created>
