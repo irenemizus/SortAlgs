@@ -1,5 +1,7 @@
 import math
 
+from indx_list import indx_item, indx_add_next, indx_del_item
+
 MAX = 10000
 
 def merge(IN, p, q, r, OUT):
@@ -38,17 +40,55 @@ def merge(IN, p, q, r, OUT):
     if j < r:
         OUT[k:r] = IN[j:r]
 
+
 def MergeSortRecursive(A, p, r, A_tmp):
-    if A_tmp == None:
+    if A_tmp is None:
         A_tmp = []
+        A_tmp[:] = A[:]
     if (r - p) >= 2:
         q = math.floor((r + p) / 2)
-        MergeSortRecursive(A, p, q, A_tmp)
-        MergeSortRecursive(A, q, r, A_tmp)
-        A_tmp[:] = A[:]
+        MergeSortRecursive(A_tmp, p, q, A)
+        MergeSortRecursive(A_tmp, q, r, A)
         merge(A_tmp, p, q, r, A)
 
-def MergeSort(A, p, r):
+
+def MergeSortLinkedList(A, p, r):
+    if p < r and r <= len(A):
+        A_in = A
+        A_out = A[:]
+
+        indx = indx_item(p)
+        indx_first = indx
+        len_indx = 1
+        for i in range(p + 1, r + 1):
+            indx = indx_add_next(indx, i)
+            len_indx += 1
+
+        indx_last = indx
+        while len_indx > 2:
+            # Merging
+            cur_indx = indx_last.prev
+
+            while cur_indx is not None and cur_indx.prev is not None:
+                merge(A_in, cur_indx.prev.indx, cur_indx.indx, cur_indx.next.indx, A_out)
+                cur_indx = cur_indx.prev.prev
+            if cur_indx is not None:
+                # Doesn't merge anything, just copies the remaining tail
+                merge(A_in, cur_indx.indx, cur_indx.indx, cur_indx.next.indx, A_out)
+
+            cur_indx = indx_last.prev
+            while cur_indx is not None and cur_indx.prev is not None:
+                indx_del_item(cur_indx)
+                cur_indx = cur_indx.prev.prev
+                len_indx -=1
+
+            tmp = A_in
+            A_in = A_out
+            A_out = tmp
+
+        A[:] = A_in[:]
+
+def MergeSortSimpleList(A, p, r):
     if p < r and r <= len(A):
         A_in = A
         A_out = A[:]
@@ -58,7 +98,6 @@ def MergeSort(A, p, r):
 
         while len(indx) > 2:
             # Merging
-            i = -1
             for i in range(len(indx) - 2, -1, -2):
                 if i > 0:
                     merge(A_in, indx[i - 1], indx[i], indx[i + 1], A_out)
