@@ -12,7 +12,7 @@ struct indx_item {
     struct indx_item *next, *prev;
 };
 
-struct indx_item* indx_alloc_initial(size_t indx) {
+struct indx_item* indx_create_initial(size_t indx) {
     struct indx_item* res = malloc(sizeof(struct indx_item));
     res->indx = indx;
     res->next = NULL;
@@ -20,7 +20,7 @@ struct indx_item* indx_alloc_initial(size_t indx) {
     return res;
 }
 
-struct indx_item* indx_alloc_next(struct indx_item *current, size_t indx) {
+struct indx_item* indx_create_next(struct indx_item *current, size_t indx) {
     struct indx_item* res = malloc(sizeof(struct indx_item));
     res->indx = indx;
     res->next = current->next;
@@ -29,7 +29,7 @@ struct indx_item* indx_alloc_next(struct indx_item *current, size_t indx) {
     return res;
 }
 
-void indx_free_item(struct indx_item *current) {
+void indx_destroy_item(struct indx_item *current) {
     if (current->prev != NULL && current->next != NULL) {
         current->prev->next = current->next;
         current->next->prev = current->prev;
@@ -45,6 +45,15 @@ void indx_free_item(struct indx_item *current) {
     }
 
     free(current);
+}
+
+void indx_destroy_all(struct indx_item *el) {
+    while (el->prev != NULL) { el = el->prev; }
+    while (el != NULL) {
+        struct indx_item* el_next = el->next;
+        free(el);
+        el = el_next;
+    }
 }
 
 void indx_print(struct indx_item *el) {

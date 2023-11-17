@@ -20,10 +20,10 @@
 #define FALSE 0
 #endif
 
-uint32_t* make_rand_list(size_t len) {
+uint32_t* make_rand_list(size_t len, size_t max_rand_val) {
     uint32_t *L = (uint32_t*)malloc(len * sizeof(uint32_t));
     for (size_t i = 0; i < len; i++) {
-        uint32_t v = rand() % 100;
+        uint32_t v = rand() % max_rand_val;
         L[i] = v;
     }
     return L;
@@ -46,9 +46,11 @@ size_t part(uint32_t* L, size_t p, size_t r) {
 }
 
 size_t rand_part(uint32_t* L, size_t p, size_t r) {
-    float v01 = (float)rand() / RAND_MAX;
-    v01 *= (float)(r - p);
-    size_t piv_ind = (size_t)(v01 + (float)p);
+    assert (r - p < RAND_MAX);
+    size_t piv_ind = rand() % (r - p + 1) + p;
+    //float v01 = (float)rand() / RAND_MAX;
+    //v01 *= (float)(r - p);
+    //size_t piv_ind = (size_t)(v01 + (float)p);
     uint32_t tmp = L[r];
     L[r] = L[piv_ind];
     L[piv_ind] = tmp;
@@ -64,9 +66,9 @@ void QuickSortRecursive(uint32_t* L, size_t p, size_t r) {
 }
 
 void QuickSort(uint32_t* L, size_t p, size_t r) {
-    struct indx_item* indx = indx_alloc_initial(p);
+    struct indx_item* indx = indx_create_initial(p);
     struct indx_item* indx_first = indx; // Points to the first list in the indx list
-    indx_alloc_next(indx, r + 1);
+    indx_create_next(indx, r + 1);
     BOOL any_sorted = TRUE;
 
     indx = indx_first;
@@ -79,20 +81,20 @@ void QuickSort(uint32_t* L, size_t p, size_t r) {
                 size_t q_i = rand_part(L, p_i, r_i - 1);
                 any_sorted = TRUE;
                 if ((p_i < q_i) && (q_i < r_i)) {
-                    indx_alloc_next(indx, q_i);
+                    indx_create_next(indx, q_i);
                     break;
                 } else if (q_i == r_i) {
-                    indx_alloc_next(indx, q_i - 1);
+                    indx_create_next(indx, q_i - 1);
                     break;
                 } else if (q_i == p_i) {
-                    indx_alloc_next(indx, p_i + 1);
+                    indx_create_next(indx, p_i + 1);
                     break;
                 }
             }
             indx = indx->next;
         }
     }
-    free(indx);
+    indx_destroy_all(indx);
 }
 
 uint32_t rand_select(uint32_t* L, size_t p, size_t r, size_t s) {
@@ -104,6 +106,8 @@ uint32_t rand_select(uint32_t* L, size_t p, size_t r, size_t s) {
         else if (s < k) return rand_select(L, p, q - 1, s);
         else return rand_select(L, q + 1, r, s - k);
     }
+    assert (FALSE); // Impossible case
+    return -1;
 }
 
 void subarrcpy(uint32_t* OUT, size_t o1, size_t o2, uint32_t* IN, size_t i1, size_t i2) {
@@ -165,11 +169,11 @@ void MergeSort(uint32_t* A, size_t len_A, size_t p, size_t r) {
         uint32_t* A_out = A_tmp;
         memcpy((void*)A_out, (void*)A, len_A * sizeof(A[0]));
 
-        struct indx_item* indx = indx_alloc_initial(p);
+        struct indx_item* indx = indx_create_initial(p);
         struct indx_item* indx_first = indx; // Points to the first list in the indx list
         size_t len_indx = 1;
         for (size_t i = p + 1; i <= r; i++) {
-            indx = indx_alloc_next(indx, i);
+            indx = indx_create_next(indx, i);
             len_indx++;
         }
 
@@ -188,7 +192,7 @@ void MergeSort(uint32_t* A, size_t len_A, size_t p, size_t r) {
 
             cur_indx = indx_last->prev;
             while(cur_indx != NULL && cur_indx->prev != NULL) {
-                indx_free_item(cur_indx);
+                indx_destroy_item(cur_indx);
                 cur_indx = cur_indx->prev->prev;
                 len_indx--;
             }
@@ -198,8 +202,8 @@ void MergeSort(uint32_t* A, size_t len_A, size_t p, size_t r) {
             A_out = xchg_tmp;
         }
 
-        indx_free_item(indx_first->next);
-        indx_free_item(indx_first);
+        indx_destroy_item(indx_first->next);
+        indx_destroy_item(indx_first);
 
         memcpy((void *) A, (void *) A_in, len_A * sizeof(A[0]));
         free(A_tmp); A_tmp = NULL;

@@ -23,64 +23,66 @@ void print_list(uint32_t* L, size_t len) {
 
 
 int main() {
-    size_t length = 12;
-    size_t max_len = 10000000;
+    size_t demo_len = 12;
+    size_t demo_max = 10000;
+    size_t perf_len = 1074000000;
+    size_t perf_max = 0x7FFFFFFF;   // RAND_MAX
 
     // QuickSortRecursive
-    uint32_t* L_rec = make_rand_list(length);
+    uint32_t* L_rec = make_rand_list(demo_len, demo_max);
 
     printf("\nInitial list for QuickSortRecursive: ");
-    print_list(L_rec, length);
+    print_list(L_rec, demo_len);
 
     size_t s = 3;
-    uint32_t Ls = rand_select(L_rec, 0, length - 1, s);
+    uint32_t Ls = rand_select(L_rec, 0, demo_len - 1, s);
     printf("The %d-th element of the list: %d\n", s, Ls);
 
-    QuickSortRecursive(L_rec, 0, length - 1);
+    QuickSortRecursive(L_rec, 0, demo_len - 1);
     printf("Sorted list for QuickSortRecursive: ");
-    print_list(L_rec, length);
+    print_list(L_rec, demo_len);
 
     free(L_rec);
 
     // QuickSort
-    uint32_t* L = make_rand_list(length);
+    uint32_t* L = make_rand_list(demo_len, demo_max);
 
     printf("\nInitial list for QuickSort: ");
-    print_list(L, length);
+    print_list(L, demo_len);
 
-    QuickSort(L, 0, length - 1);
+    QuickSort(L, 0, demo_len - 1);
     printf("Sorted list for QuickSort: ");
-    print_list(L, length);
+    print_list(L, demo_len);
 
     free(L);
 
     // MergeSortRecursive
-    uint32_t* IN_rec = make_rand_list(length);
+    uint32_t* IN_rec = make_rand_list(demo_len, demo_max);
     printf("\nInitial list for MergeSortRecursive: ");
-    print_list(IN_rec, length);
+    print_list(IN_rec, demo_len);
 
 
     size_t p_rec = 0;
-    size_t r_rec = length;
+    size_t r_rec = demo_len;
 
-    MergeSortRecursive(IN_rec, length, p_rec, r_rec, NULL);
+    MergeSortRecursive(IN_rec, demo_len, p_rec, r_rec, NULL);
     printf("Sorted list for MergeSortRecursive: ");
-    print_list(IN_rec, length);
+    print_list(IN_rec, demo_len);
 
     free(IN_rec);
 
     // MergeSort
-    uint32_t* IN = make_rand_list(length);
+    uint32_t* IN = make_rand_list(demo_len, demo_max);
     printf("\nInitial list for MergeSort: ");
-    print_list(IN, length);
+    print_list(IN, demo_len);
 
 
     size_t p = 0;
-    size_t r = length;
+    size_t r = demo_len;
 
-    MergeSort(IN, length, p, r);
+    MergeSort(IN, demo_len, p, r);
     printf("Sorted list for MergeSort: ");
-    print_list(IN, length);
+    print_list(IN, demo_len);
 
     free(IN);
 
@@ -88,12 +90,12 @@ int main() {
     printf("\nLength\tT_qsr\tT_msr\tT_qsll\tT_msll\n");
     double step = pow(2.0, 1.0 / 5);
     srand(0);
-    for (double len_L_d = 8; len_L_d < max_len; len_L_d=len_L_d * step) {
+    for (double len_L_d = 8; len_L_d < perf_len; len_L_d= len_L_d * step) {
         size_t len_L = (size_t)len_L_d;
         printf("%zu\t", len_L); fflush(stdout); // Length of the array
 
         // Generating an array of the given length
-        uint32_t* L_init = make_rand_list(len_L);
+        uint32_t* L_init = make_rand_list(len_L, perf_max);
 
         // Making copies of L_init for the algorithms in comparison:
         // QuickSort
