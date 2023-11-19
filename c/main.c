@@ -1,11 +1,10 @@
+#include "sort_algs.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
-
-#include "sort_algs.h"
-
 
 void print_list(uint32_t* L, size_t len) {
     printf("[");

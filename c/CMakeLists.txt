@@ -7,10 +7,17 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(sort_algs
         main.c
-        indx_list.h)
+        indx_list.c
+        indx_list.h
+        sort_algs.c
+        sort_algs.h)
 
 add_executable(sort_algs_test
         sort_algs_tests.c
+        indx_list.c
+        indx_list.h
+        sort_algs.c
+        sort_algs.h
         third_party/cutest-1.5/CuTest.c
         third_party/cutest-1.5/CuTest.h)
 
