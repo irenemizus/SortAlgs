@@ -33,3 +33,20 @@ $Q = a\cdot x + d\cdot x\cdot log_2(x)$. Unfortunately, we can not test this on 
 ![graph1](https://raw.githubusercontent.com/irenemizus/SortAlgs/master/c/report/log.i9-10900K.macos/graph1.svg)
 ![graph2](https://raw.githubusercontent.com/irenemizus/SortAlgs/master/c/report/log.i9-10900K.macos/graph2.svg)
 ![graph3](https://raw.githubusercontent.com/irenemizus/SortAlgs/master/c/report/log.i9-10900K.macos/graph3.svg)
+
+## Python implementation analysis report and graphs
+
+As we can see at the diagrams below:
+1. Recursive algos are linearly more effective than algos with "home-made" linked lists. I blame my code optimizing skills for that.
+2. For all practically sane array sizes (up to 1B items), the complexity grows almost linearly.
+3. Both recursive algos are very close to each other in terms of performance on a data distribution close to the uniform one. 
+4. Linked list-based implementations are close to linearly different from each other on this type of data. Apparently, the MergeSort() function is just little less effective than the QuickSort() one.
+5. With increasing number of items the difference in performance between linked lists-based and recursive algos slowly tends to one. That can be explained by growing impact of the non-linear term in complexity
+$Q = a\cdot x + d\cdot x\cdot log_2(x)$. Unfortunately, we can not test this on significantly larger arrays due to the physical RAM limit (the program takes about $20\times \text{Length}$ bytes RAM).
+7. The values captured for small array lengths (up to about 5K items) are not representative because of low accuracy of time measurement. 
+8. There is an unexpected leap of measured times (reduction of performance) by 12% for the linked list-based MergeSort algorithm at about 1M items. I can not explain this...
+
+![graph4](https://raw.githubusercontent.com/irenemizus/SortAlgs/master/python/report/log.i9-10900K.macos/graph4.svg)
+![graph5](https://raw.githubusercontent.com/irenemizus/SortAlgs/master/python/report/log.i9-10900K.macos/graph5.svg)
+![graph6](https://raw.githubusercontent.com/irenemizus/SortAlgs/master/python/report/log.i9-10900K.macos/graph6.svg)
+![graph7](https://raw.githubusercontent.com/irenemizus/SortAlgs/master/python/report/log.i9-10900K.macos/graph7.svg)
