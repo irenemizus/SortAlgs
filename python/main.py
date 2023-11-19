@@ -8,20 +8,22 @@ import msort
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    length = 12
-    max_len = 10000000
+    demo_len = 12
+    demo_max = 10000
+    perf_len = 16800000
+    perf_max = 0x7FFFFFFF   # == RAND_MAX
 
     # Reference sorting by a standard Python tool
-    L_ref = [random.randint(0, msort.MAX) for i in range(max_len)]
+    L_ref = [random.randint(0, perf_max) for i in range(perf_len)]
     sec_i_ref = time.time()
     L_ref.sort()
     sec_f_ref = time.time()
 
     time_ref = sec_f_ref - sec_i_ref
-    print(f"Standard Python List sort for 10M items: {time_ref:.6f}")
+    print(f"Standard Python List sort for {perf_len} items: {time_ref:.6f}\n")
 
     # QuickSortRecursive
-    L_rec = random.sample(range(0, msort.MAX), length)
+    L_rec = random.sample(range(0, demo_max), demo_len)
     print("Initial list for QuickSortRecursive: ", L_rec)
 
     s = 3
@@ -34,7 +36,7 @@ if __name__ == '__main__':
     print()
 
     # QuickSort
-    L = random.sample(range(0, msort.MAX), length)
+    L = random.sample(range(0, demo_max), demo_len)
     print("Initial list for QuickSort: ", L)
 
     qsort.QuickSortLinkedList(L, 0, len(L) - 1)
@@ -43,7 +45,7 @@ if __name__ == '__main__':
     print()
 
     # QuickSortSimpleList
-    L_sl = random.sample(range(0, msort.MAX), length)
+    L_sl = random.sample(range(0, demo_max), demo_len)
     print("Initial list for QuickSortSimpleList: ", L_sl)
 
     qsort.QuickSortSimpleList(L_sl, 0, len(L_sl) - 1)
@@ -52,7 +54,7 @@ if __name__ == '__main__':
     print()
 
     # MergeSortRecursive
-    IN_rec = random.sample(range(0, msort.MAX), length)
+    IN_rec = random.sample(range(0, demo_max), demo_len)
     print("Initial list for MergeSortRecursive: ", IN_rec)
 
     p_rec = 0
@@ -63,7 +65,7 @@ if __name__ == '__main__':
     print()
 
     # MergeSort
-    IN = random.sample(range(0, msort.MAX), length)
+    IN = random.sample(range(0, demo_max), demo_len)
     print("Initial list for MergeSort: ", IN)
 
     p = 0
@@ -73,7 +75,7 @@ if __name__ == '__main__':
 
     print()
 
-    IN_sl = random.sample(range(0, msort.MAX), length)
+    IN_sl = random.sample(range(0, demo_max), demo_len)
     print("Initial list for MergeSortSimpleList: ", IN_sl)
 
     p = 0
@@ -88,12 +90,12 @@ if __name__ == '__main__':
     step = math.pow(2.0, 1.0 / 5)
     len_L_d = 8
     random.seed(0)
-    while len_L_d < max_len:
+    while len_L_d < perf_len:
         len_L = int(len_L_d)
         print(f"{len_L}\t", end='') # Length of the array
 
         # Generating an array of the given length
-        L_init = [random.randint(0, msort.MAX) for i in range(len_L)]  #  random.sample(range(0, msort.MAX), len_L)
+        L_init = [random.randint(0, perf_max) for i in range(len_L)]  #  random.sample(range(0, small_max), len_L)
 
         # Making copies of L_init for the algorithms in comparison:
         # QuickSort
@@ -166,6 +168,5 @@ if __name__ == '__main__':
 
         time_mssl = sec_f_mssl - sec_i_mssl
         print(f"{time_mssl:.6f}")
-
 
         len_L_d = len_L_d * step
